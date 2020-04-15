@@ -24,7 +24,7 @@ describe("masterGame", () => {
     const startGame3 = loadBoss(startGame2); //changing state
     
     //Assert
-    expect(startGame3).toEqual({playerName: "", playerAttackStrength: 1, playerLifebar: 5, bossName: "Brooker T", bossAttackStrength: 5, bossLifebar: 10});
+    expect(startGame3).toEqual({playerName: "James", playerAttackStrength: 1, playerLifebar: 5, bossName: "Brooker T", bossAttackStrength: 5, bossLifebar: 10});
   })
 })
 

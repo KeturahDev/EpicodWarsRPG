@@ -22,7 +22,7 @@ const initialGame =  {
   return (value) => {           // value = value of property
     return (state) => ({        // current state of object
       ...state,                 // create copy of state
-      [prop] : (state[prop] ) + value   //alter and return copy of state to adhere to change in property's value
+      [prop] : (state[prop]) + value   //alter and return copy of state to adhere to change in property's value
     })
   }
 }
