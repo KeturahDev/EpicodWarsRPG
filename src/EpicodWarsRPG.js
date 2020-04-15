@@ -12,8 +12,8 @@ const initialGame =  {
   playerAttackStrength: 1,
   playerLifebar: 5, 
   bossName: "",
-  bossAttackStrength: 5,
-  bossLifebar: 10,
+  bossAttackStrength: 3,
+  bossLifebar: 7,
 }
 
 //  const masterGame = storeState(initialGame);
@@ -38,17 +38,23 @@ export const changeState = (prop) => {  //prop = property
 
  
 // const playerLBMax = player.lifebar (callWhenEnterFightMode)
+
+// ----------------- T R A I N I N G  C H A N G E S T A T E S ----------------------
 // const enterWinState = changeState(playerLifebar)(10); //Add 10 points to playerLifeBar after win
 
-const classLesson = changeState("playerAttackStrength")(3); //Add 3 points to playerAttackStrength
-const standUp = changeState("playerAttackStrength")(1); //Add 1 point to playerAttackStrength
+export const classLesson = changeState("playerAttackStrength")(3); //Add 3 points to playerAttackStrength
+export const standUp = changeState("playerAttackStrength")(1); //Add 1 point to playerAttackStrength
 
 
+//pretend player actions
+const playerStudies = classLesson(startGame3);
+const enteringFightState = standUp(playerStudies);
+// - player clicks ("FIGHT") ... player has 5 attack 
 
-// -Enter trainingMode: fully replenish lifebar
-// //training modes (buttons, each one triggers on e of these stateAlters)
-// -standUp increase playerAttackStrength by1
-// -classLesson increases playerAttackStrength by2
+// ----------------- F I G H T - M O D E  C H A N G E S T A T E S ----------------------
+export const playerGiveHit = changeState("bossLifebar")(-(enteringFightState.playerAttackStrength)); //boss now has 2 life
+const bossGiveHit = changeState("playerLifebar")(-(enteringFightState.bossAttackStrength)); //student now has 2
+
 
 // //fight modes
 // -attack hits lower healthbar (player => boss, boss => player)
@@ -57,6 +63,12 @@ const standUp = changeState("playerAttackStrength")(1); //Add 1 point to playerA
 //              3. enterTrainingRoom
 // -student loses: 
 //              1. Restart Game (state after uploading name)
+
+// -Enter trainingMode: fully replenish lifebar
+// //training modes (buttons, each one triggers on e of these stateAlters)
+// -standUp increase playerAttackStrength by1
+// -classLesson increases playerAttackStrength by2
+
 
 
 

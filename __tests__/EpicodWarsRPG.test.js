@@ -1,5 +1,4 @@
-import { storeState, changeState } from './../src/EpicodWarsRPG.js';
-
+import { storeState, playerGiveHit, changeState, classLesson, standUp } from './../src/EpicodWarsRPG.js';
 describe("masterGame", () => {
 
   test("should save initial game state", () => {
@@ -57,7 +56,40 @@ describe("TrainingMode", () => {
   });
 });
 
+describe("FightingMode", () => {
 
+  test("should decrement bossLifebar by 5", () => {
+    // Arrange
+    const initialGame =  { 
+      playerName: "",
+      playerAttackStrength: 1,
+      playerLifebar: 5, 
+      bossName: "",
+      bossAttackStrength: 5,
+      bossLifebar: 10,
+    }
+   
+    const startGame = storeState(initialGame); 
+    const input = "James";
+    const assignName = changeState("playerName")(input);
+    const loadBoss = changeState("bossName")("Brooker T");
+
+    const startGame2 = startGame(assignName); 
+    const startGame3 = loadBoss(startGame2); 
+    
+    // const classLesson = changeState("playerAttackStrength")(3);
+    // const standUp = changeState("playerAttackStrength")(1);
+    const playerStudies = classLesson(startGame3);
+    const enteringFightState = standUp(playerStudies);
+    
+    //Act
+    // const playerGiveHit = changeState("bossLifebar")(-enteringFightState.playerAttackStrength);
+    const teacherBattle = playerGiveHit(enteringFightState);
+
+    //Assert
+    expect(teacherBattle.bossLifebar).toEqual(2);
+  });
+});
 
 
 
