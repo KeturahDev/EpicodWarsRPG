@@ -1,12 +1,8 @@
 export const storeState = (initialState) => {
-  console.log("store state");
-  const currentState = initialState;
-  console.log("current state:", initialState);
+  let currentState = initialState;
   return (functionStateChange) => {
-    console.log("state change function");
-    newState = functionStateChange(currentState);
+    const newState = functionStateChange(currentState);
     currentState = {...currentState};
-    console.log("change state");
     return newState;
   }
 }
@@ -26,7 +22,7 @@ const initialGame =  {
   return (value) => {           // value = value of property
     return (state) => ({        // current state of object
       ...state,                 // create copy of state
-      [prop] : (state[prop] || 0) + value   //alter and return copy of state to adhere to change in property's value
+      [prop] : (state[prop] ) + value   //alter and return copy of state to adhere to change in property's value
     })
   }
 }
