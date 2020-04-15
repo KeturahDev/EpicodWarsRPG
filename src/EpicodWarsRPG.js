@@ -1,28 +1,28 @@
-const storeState = (initialState) => {
-  currentstate = initialState;
+export const storeState = (initialState) => {
+  console.log("store state");
+  const currentState = initialState;
+  console.log("current state:", initialState);
   return (functionStateChange) => {
+    console.log("state change function");
     newState = functionStateChange(currentState);
     currentState = {...currentState};
+    console.log("change state");
     return newState;
   }
 }
 
-const initialGame = {
-  player1: {
-    name: "",
-    attackStrength: 1,
-    lifebar: 5,
-  },
-  boss: {
-    name: "",
-    attackStrength: 5,
-    lifebar: 10,
-  }
+const initialGame =  { 
+  playerName: "",
+  playerAttackStrength: 1,
+  playerLifebar: 5, 
+  bossName: "",
+  bossAttackStrength: 5,
+  bossLifebar: 10,
 }
 
-const masterGame = storeState(intialGame);
+ const masterGame = storeState(initialGame);
 
-const changeSate = (prop) => {  //prop = property
+ export const changeState = (prop) => {  //prop = property
   return (value) => {           // value = value of property
     return (state) => ({        // current state of object
       ...state,                 // create copy of state
