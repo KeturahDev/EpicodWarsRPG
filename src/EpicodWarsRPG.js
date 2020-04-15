@@ -18,6 +18,15 @@ const initialGame =  {
 
 //  const masterGame = storeState(initialGame);
  
+export const changeState = (prop) => {  //prop = property
+  return (value) => {           // value = value of property
+    return (state) => ({        // current state of object
+      ...state,                 // create copy of state
+      [prop] : (state[prop]) + value   //alter and return copy of state to adhere to change in property's value
+    })
+  }
+}
+
    const startGame = storeState(initialGame); //only do once? - (runs player/boss objects through storeState)
     const input = "James";
     const assignName = changeState("playerName")(input);
@@ -27,22 +36,12 @@ const initialGame =  {
     const startGame2 = startGame(assignName); //changing state
     const startGame3 = loadBoss(startGame2);
 
- export const changeState = (prop) => {  //prop = property
-  return (value) => {           // value = value of property
-    return (state) => ({        // current state of object
-      ...state,                 // create copy of state
-      [prop] : (state[prop]) + value   //alter and return copy of state to adhere to change in property's value
-    })
-  }
-}
+ 
 // const playerLBMax = player.lifebar (callWhenEnterFightMode)
-const enterWinState = changeState(playerLifebar)(10); //Add 10 points to playerLifeBar after win
+// const enterWinState = changeState(playerLifebar)(10); //Add 10 points to playerLifeBar after win
 
-const classLesson = changeState(playerAttackStrength)(3); //Add 3 points to playerAttackStrength
-const standUp = changeState(playerAttackStrength)(1); //Add 1 point to playerAttackStrength
-
-
-
+const classLesson = changeState("playerAttackStrength")(3); //Add 3 points to playerAttackStrength
+const standUp = changeState("playerAttackStrength")(1); //Add 1 point to playerAttackStrength
 
 
 
