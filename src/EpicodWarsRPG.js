@@ -6,7 +6,7 @@ export const storeState = (initialState) => {
     return newState;
   }
 }
-
+// current format
 const initialGame =  { 
   playerName: "",
   playerAttackStrength: 1,
@@ -15,6 +15,25 @@ const initialGame =  {
   bossAttackStrength: 3,
   bossLifebar: 7,
 }
+
+// refactore to this
+  // const player =  { 
+  //   playerName: "",
+  //   playerAttackStrength: 1,
+  //   playerLifebar: 5, 
+  //   // bossName: "",
+  //   // bossAttackStrength: 3,
+  //   // bossLifebar: 7,
+  // }
+  // const boss =  { 
+  //   // playerName: "",
+  //   // playerAttackStrength: 1,
+  //   // playerLifebar: 5, 
+  //   bossName: "",
+  //   bossAttackStrength: 3,
+  //   bossLifebar: 7,
+  // }
+
 
 //  const masterGame = storeState(initialGame);
  
@@ -26,15 +45,25 @@ export const changeState = (prop) => {  //prop = property
     })
   }
 }
-
-   const startGame = storeState(initialGame); //only do once? - (runs player/boss objects through storeState)
+//changed startGame to updateGame
+   const updateGame = storeState(initialGame); //only do once? - (runs player/boss objects through storeState)
     const input = "James";
     const assignName = changeState("playerName")(input);
     const loadBoss = changeState("bossName")("Brooker T");
   
     //Act
-    const startGame2 = startGame(assignName); //changing state
-    const startGame3 = loadBoss(startGame2);
+    const nameAssignedToStateObj = updateGame(assignName); //changing state
+    const bossLoadedToStateObj = updateGame(loadBoss);
+    // const startGame3 = loadBoss(startGame2);
+
+    // const currentState =  { 
+    //   playerName: "James",
+    //   playerAttackStrength: 1,
+    //   playerLifebar: 5, 
+    //   bossName: "Brooker T",
+    //   bossAttackStrength: 3,
+    //   bossLifebar: 7,
+    // }
 
  
 // const playerLBMax = player.lifebar (callWhenEnterFightMode)
@@ -42,18 +71,24 @@ export const changeState = (prop) => {  //prop = property
 // ----------------- T R A I N I N G  C H A N G E S T A T E S ----------------------
 // const enterWinState = changeState(playerLifebar)(10); //Add 10 points to playerLifeBar after win
 
-export const classLesson = changeState("playerAttackStrength")(3); //Add 3 points to playerAttackStrength
-export const standUp = changeState("playerAttackStrength")(1); //Add 1 point to playerAttackStrength
+// export const classLesson = changeState("playerAttackStrength")(3);
+export const goToClass = changeState("playerAttackStrength")(3); //Add 3 points to playerAttackStrength
+export const goToStandUp = changeState("playerAttackStrength")(1); //Add 1 point to playerAttackStrength
 
+// const playerStudies2 = 
 
 //pretend player actions
-const playerStudies = classLesson(startGame3);
-const enteringFightState = standUp(playerStudies);
+// const playerStudies = classLesson(startGame);
+// const playerInClassLesson = updateGame(classLesson);// 
+const playerWentToClass = updateGame(goToClass);
+const playerWentToStandUp = updateGame(goToStandUp);
+
+
 // - player clicks ("FIGHT") ... player has 5 attack 
 
 // ----------------- F I G H T - M O D E  C H A N G E S T A T E S ----------------------
-export const playerGiveHit = changeState("bossLifebar")(-(enteringFightState.playerAttackStrength)); //boss now has 2 life
-const bossGiveHit = changeState("playerLifebar")(-(enteringFightState.bossAttackStrength)); //student now has 2
+export const playerGiveHit = changeState("bossLifebar")(-(playerWentToStandUp.playerAttackStrength)); //boss now has 2 life
+const bossGiveHit = changeState("playerLifebar")(-(playerWentToStandUp.bossAttackStrength)); //student now has 2
 
 
 // //fight modes

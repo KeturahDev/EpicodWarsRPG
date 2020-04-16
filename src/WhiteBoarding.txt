@@ -1,0 +1,45 @@
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+
+ex: below (10)
+input 10
+first functionality: return array of numbers that are multiples of 5/3
+    output: [3, 5, 6, 9]
+next functionality: add them together 
+    output: 23
+
+max number - 1000
+get 
+
+loop- recursion
+
+const sumOfEulerNumbersUpTo = (maxNumber) => {
+  const max = naxNumber
+  //return function that will loop through
+  return const RecureUntilReachingMax (currentNumber, array = []) => {
+    //check current number is multiple of 3 or 5
+    //push numbers to array
+    //return array after reaching the max
+    if (currentNumber >= max) {
+      return array;
+    } else {
+      if (currentNumber % 5 === 0){
+        //push array and recure
+        
+        currentNumber ++
+      } else if (currentNumber % 3 === 0){
+        //push array and recure
+        currentNumber ++
+      } else {
+        //reaccure upcurrentnumber
+        currentNumber ++
+      }
+
+    }
+  }
+}
+
+sumOfEulerNumbersUpTo(1000)()
+
+
