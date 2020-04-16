@@ -19,6 +19,7 @@ describe("masterGame", () => {
   
     //Act
     const startGame2 = startGame(assignName); //dealing with store state function- expects the changeState func to be passed in the param of store state's inner function
+    
     const startGame3 = loadBoss(startGame2);  // state change function entering its final param: a stateObject. This is how we doooo it from now on 
      
     //Assert
