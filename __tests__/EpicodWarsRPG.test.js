@@ -1,4 +1,4 @@
-import { storeState, playerGiveHit, changeState, classLesson, standUp } from './../src/EpicodWarsRPG.js';
+import { storeState, playerGiveHit, bossGiveHit, changeState, goToClass, goToStandUp } from './../src/EpicodWarsRPG.js';
 describe("masterGame", () => {
 
   test("should save initial game state", () => {
@@ -9,21 +9,21 @@ describe("masterGame", () => {
       playerLifebar: 5, 
       bossName: "",
       bossAttackStrength: 5,
-      bossLifebar: 10,
+      bossLifebar: 7,
     }
     
-    const startGame = storeState(initialGame); 
+    const updateGame = storeState(initialGame); 
     const input = "James";
     const assignName = changeState("playerName")(input);
     const loadBoss = changeState("bossName")("Brooker T");
-  
+
+
     //Act
-    const startGame2 = startGame(assignName); //dealing with store state function- expects the changeState func to be passed in the param of store state's inner function
-    
-    const startGame3 = loadBoss(startGame2);  // state change function entering its final param: a stateObject. This is how we doooo it from now on 
+    const nameAssigned = updateGame(assignName);
+    const bossLoaded = updateGame(loadBoss); 
      
     //Assert
-    expect(startGame3).toEqual({playerName: "James", playerAttackStrength: 1, playerLifebar: 5, bossName: "Brooker T", bossAttackStrength: 5, bossLifebar: 10});
+    expect(bossLoaded).toEqual({playerName: "James", playerAttackStrength: 1, playerLifebar: 5, bossName: "Brooker T", bossAttackStrength: 5, bossLifebar: 10});
   });
 });
 
@@ -37,28 +37,25 @@ describe("TrainingMode", () => {
       playerLifebar: 5, 
       bossName: "",
       bossAttackStrength: 5,
-      bossLifebar: 10,
+      bossLifebar: 7,
     }
-   
-    const startGame = storeState(initialGame); 
+    const updateGame = storeState(initialGame); 
     const input = "James";
     const assignName = changeState("playerName")(input);
     const loadBoss = changeState("bossName")("Brooker T");
-
-    const startGame2 = startGame(assignName); 
-    const startGame3 = loadBoss(startGame2); 
+    const nameAssigned = updateGame(assignName);
+    const bossLoaded = updateGame(loadBoss); 
     
     //Act
-    const classLesson = changeState("playerAttackStrength")(3);
-    const updatedGame = classLesson(startGame3);
+    const goToClassLesson = changeState("playerAttackStrength")(3);
+    const playerWentToClass = updateGame(goToClassLesson);
 
     //Assert
-    expect(updatedGame.playerAttackStrength).toEqual(4);
+    expect(playerWentToClass.playerAttackStrength).toEqual(4);
   });
 });
 
 describe("FightingMode", () => {
-
   test("should decrement bossLifebar by 5", () => {
     // Arrange
     const initialGame =  { 
@@ -67,28 +64,35 @@ describe("FightingMode", () => {
       playerLifebar: 5, 
       bossName: "",
       bossAttackStrength: 5,
-      bossLifebar: 10,
+      bossLifebar: 7,
     }
    
-    const startGame = storeState(initialGame); 
+    const updateGame = storeState(initialGame); 
     const input = "James";
     const assignName = changeState("playerName")(input);
     const loadBoss = changeState("bossName")("Brooker T");
-
-    const startGame2 = startGame(assignName); 
-    const startGame3 = loadBoss(startGame2); 
+    const nameAssigned = updateGame(assignName);
+    const bossLoaded = updateGame(loadBoss); 
     
     // const classLesson = changeState("playerAttackStrength")(3);
     // const standUp = changeState("playerAttackStrength")(1);
-    const playerStudies = classLesson(startGame3);
-    const enteringFightState = standUp(playerStudies);
+    const goToClassLesson = changeState("playerAttackStrength")(3);
+    const goToStandUp = changeState("playerAttackStrength")(1);
+    const playerWentToClass = updateGame(goToClassLesson);
+    console.log("after class:" , playerWentToClass.playerAttackStrength);
+    const playerWentToStandUp = updateGame(goToStandUp);
+    console.log("after standup:" , playerWentToStandUp.playerAttackStrength);
+    //player attaackStrenght = 5
+    // boss lifebar = 7
+    // 5-7
     
     //Act
-    // const playerGiveHit = changeState("bossLifebar")(-enteringFightState.playerAttackStrength);
-    const teacherBattle = playerGiveHit(enteringFightState);
+    const battleBegins = updateGame(playerGiveHit);
+    console.log("after giving hit PLAYERATTACK:" , playerWentToStandUp.playerAttackStrength);
+    console.log("after giving hit LIFEBAR:" , playerWentToStandUp.bossLifebar);
 
     //Assert
-    expect(teacherBattle.bossLifebar).toEqual(2);
+    expect(battleBegins.bossLifebar).toEqual(2);
   });
 });
 
