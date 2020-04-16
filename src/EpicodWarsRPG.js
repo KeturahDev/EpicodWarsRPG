@@ -7,35 +7,35 @@ export const storeState = (initialState) => {
   }
 }
 
-//--> current format
-const initialGame =  { 
-  playerName: "",
-  playerAttackStrength: 1,
-  playerLifebar: 5, 
-  bossName: "",
-  bossAttackStrength: 3,
-  bossLifebar: 7,
+const initialGameState = {
+  startScreen: true,
+  fightMode: false,
+  trainingMode: true,
+  bossWon: false,
+  playerWon: false
 }
 
-//--> refactore to this
-//   const player =  { 
-//     playerName: "",
-//     playerAttackStrength: 1,
-//     playerLifebar: 5, 
-//     // bossName: "",
-//     // bossAttackStrength: 3,
-//     // bossLifebar: 7,
-//   }
-//   const boss =  { 
-//     // playerName: "",
-//     // playerAttackStrength: 1,
-//     // playerLifebar: 5, 
-//     bossName: "",
-//     bossAttackStrength: 3,
-//     bossLifebar: 7,
-//   }
+const initialPlayer = {
+  name: "",
+  attackStrength: 1,
+  confidence: false,
+  lifebar: 10,
+  stack: ""
+}
 
- 
+const initialBoss = {
+  name: "",
+  attackStrength: 3,
+  lifebar: 10,
+}
+
+// ------------ initial creation ------------ //
+
+const updateGameState = storeState(initialGameState);
+const updatePlayer = storeState(initialPlayer);
+const updateBoss = storeState(initialBoss);
+
+// ------------ Change State Function Factories ------------ //
 export const changeState = (prop) => {  
   return (value) => {        
     if(isNaN(value)) {
@@ -46,26 +46,29 @@ export const changeState = (prop) => {
     } else {
       return (state) => ({
         ...state,
-        [prop] : (state[prop] || 0) + value  
+        [prop] : (state[prop] || 0) + value 
       })
     }
   }
 }
 
-const updateGame = storeState(initialGame);
-const input = "James";
+// FRONT END EX: const input = "James";
 const assignName = changeState("playerName")(input);
 const loadBoss = changeState("bossName")("Brooker T");
 
-//Act
 const nameAssigned = updateGame(assignName);
 const bossLoaded = updateGame(loadBoss);
 
+
+// ----------------- S T A R T I N G    C H A N G E - S T A T E S ----------------------
+
     
-// ----------------- T R A I N I N G  C H A N G E S T A T E S ----------------------
-    
+// ----------------- T R A I N I N G  C H A N G E - S T A T E S ----------------------
+
+// ==== t r a n s i t i o n   c h a n g e - s t a t e s =========
 // const playerLBMax = player.lifebar (callWhenEnterFightMode)
-const regenerateLifeBar = changeState(playerLifebar)(10); //Add 10 points to playerLifeBar after win
+// const regenerateLifeBar = changeState(playerLifebar)(10); //Add 10 points to playerLifeBar after win
+// ==============================================================
 
 export const goToClass = changeState("playerAttackStrength")(3);
 export const goToStandUp = changeState("playerAttackStrength")(1);
@@ -73,12 +76,10 @@ const playerWentToClass = updateGame(goToClass);
 const playerWentToStandUp = updateGame(goToStandUp);
  
 
-// ----------------- F I G H T - M O D E  C H A N G E S T A T E S ----------------------
-export const playerGiveHit = changeState("bossLifebar")(-(playerWentToStandUp.playerAttackStrength)); //boss now has 2 life
-console.log("after giving hit ON JS ATTACKSTR:" , playerWentToStandUp.playerAttackStrength);
-console.log("after giving hit ON JS LIFBAR:" , playerWentToStandUp.bossLifebar);
+// ----------------- F I G H T - M O D E  C H A N G E - S T A T E S ----------------------
+export const playerGiveHit = changeState("bossLifebar")(-(playerWentToStandUp.playerAttackStrength)); 
 
-export const bossGiveHit = changeState("playerLifebar")(-(playerWentToStandUp.bossAttackStrength)); //student now has 2
+export const bossGiveHit = changeState("playerLifebar")(-(playerWentToStandUp.bossAttackStrength)); 
 
 
 // //fight modes
@@ -95,42 +96,31 @@ export const bossGiveHit = changeState("playerLifebar")(-(playerWentToStandUp.bo
 // -classLesson increases playerAttackStrength by2
 
 
-
-
+//--> previous format
+// const initialGame =  { 
+//   playerName: "",
+//   playerAttackStrength: 1,
+//   playerLifebar: 5, 
+//   bossName: "",
+//   bossAttackStrength: 5,
+//   bossLifebar: 7,
+// }
 
 
 // brainstorm:
 
 // stretchgoals:
+
 // -confidence bool
 
-// // stretch goal -> students & teacher squads have training grounds
-// // squads fight bosses
-// // attack strength starts at 2-3
-// // fighting mode/ training - squad chooses when to go to battle, after battles, auto go back to prepping
-
-// mainObjects
-// bosses: {
-//   name: ("brooker T" or "travis scott") //final boss - Micheal
-//   strength: (static)
-//   lifebar:
-// }
+// fighting mode/ training - squad chooses when to go to battle, after battles, auto go back to prepping
 
 
 // squads: {
-//   players: {
-//     name: ""
-//     -attackStrength : (number increments)  
 //     -langWeapon: "C#"
-//     -lifebar (10/10): (increments/decrements)
 //     // -level: 
 //   }
 // }
-
-// objects that effect main objects state:
-
-// standUp (attackStrength)(value) +1
-// classLesson (attackStrength)(value) + 2  -- ex: babel(attackStrength)(1), webpack(attakcStrength)(2)
 // Stack (lifebar)(value) + 3
 
 
