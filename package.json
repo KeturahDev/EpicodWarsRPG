@@ -17,7 +17,7 @@
     "debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "keywords": [],
-  "author": "Keturah Howard, Patrick Delaney, Mariam Alaeddin, Dom",
+  "author": "Keturah Howard, Patrick Delaney, Mariam Alaeddin, Dominique Youmans",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.6.4",

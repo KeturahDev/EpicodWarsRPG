@@ -7,6 +7,6 @@ $(document).ready(function() {
     event.preventDefault();
     var name = $("input#name").val();
     $('#showName').text(name);
+    $('#hide').fadeOut(); thanks !
+    });
   });
-});
-

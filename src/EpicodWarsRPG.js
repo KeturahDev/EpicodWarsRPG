@@ -7,7 +7,7 @@ export const storeState = (initialState) => {
   }
 }
 
-const initialGameState = {
+export const initialGameState = {
   startScreen: true,
   fightMode: false,
   trainingMode: true,
@@ -15,15 +15,15 @@ const initialGameState = {
   playerWon: false
 }
 
-const initialPlayer = {
+export const initialPlayer = {
   name: "",
   attackStrength: 1,
   confidence: false,
   lifebar: 10,
-  stack: ""
+  // stack: ""
 }
 
-const initialBoss = {
+export const initialBoss = {
   name: "",
   attackStrength: 3,
   lifebar: 10,
@@ -31,9 +31,9 @@ const initialBoss = {
 
 // ------------ initial creation ------------ //
 
-const updateGameState = storeState(initialGameState);
-const updatePlayer = storeState(initialPlayer);
-const updateBoss = storeState(initialBoss);
+export const updateGameState = storeState(initialGameState);
+export const updatePlayer = storeState(initialPlayer);
+export const updateBoss = storeState(initialBoss);
 
 // ------------ Change State Function Factories ------------ //
 export const changeState = (prop) => {  
@@ -52,11 +52,14 @@ export const changeState = (prop) => {
   }
 }
 
+//change state function that 
+
 
 
 // ----------------- S T A R T I N G    C H A N G E - S T A T E S ----------------------
 // FRONT END EX: const input = "James";
 //~ player
+const input = "James";
 const assignName = changeState("playerName")(input);
 //~ game
 const leaveStartScreen = changeState("StartScreen")(false)
@@ -84,16 +87,23 @@ const playerWentToStandUp = updatePlayer(goToStandUp);
  
 // ----------------- F I G H T - M O D E  C H A N G E - S T A T E S ----------------------
 // ~ game
-const leaveTraining = changeState("trainingMode")(false)
-const enterTrainigMode = changeState("fightingMode")(true)
-// ~ player + boss
-export const playerGiveHit = changeState("bossLifebar")(-(playerWentToStandUp.playerAttackStrength)); 
+const leaveTraining = changeState("trainingMode")(false);
+const enterFightingMode = changeState("fightingMode")(true);
+const checkForBattleEnd = changeState()
+// ON LOAD
+const leftTrainState = updateGameState(leaveTraining)
+const enterBattle = updateGameState(enterFightingMode)
+const fightingPlayer = playerWentToClass; //update most recent version of player to be equal to this keyword for sake of changeState functionality below
 
+// ~ player
+export const playerHit = changeState("lifebar")(-(fightingPlayer.playerAttackStrength)); 
+// ~ boss
+export const bossHit = changeState("lifebar")(-(bossLoaded.bossAttackStrength)); 
 
-// PRESS ATTACK
-const playerAttacked = 
+// PRESS ATTACK BUTTON ... TRIGGER v
+const playerAttacked = updateBoss(playerHit);
 //  boss auto-hits
-export const bossGiveHit = changeState("playerLifebar")(-(playerWentToStandUp.bossAttackStrength)); 
+const bossAttacked = updatePlayer(bossHit);
 
 
 // //fight modes

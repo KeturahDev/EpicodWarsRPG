@@ -2,24 +2,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
-    <script type="text/javascript" src="EpicodWarsRPG.js.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+          integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+          crossorigin="anonymous"></script>
+  <script type="text/javascript" src="EpicodWarsRPG.js.js"></script>
+
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css">E
+  <link href="css/styles.css" rel="stylesheet" type="text/css">
+  <script src="js/jquery-3.4.1.js"></script>
+  <script src="js/scripts.js"></script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
 <body>
-  <div id="begin">
+  <div class="container" id="begin">
     <form id="addName">
-      <label for="name">Enter your player's name:</label>
+      <div class="jumbotron">
+      <h1> Welcome to EpiCodWars! </h1>
+      </div>
+
+      <div id="hide">
+      <label for="name" id="name"><h3>Enter your name:</h3></label>
       <input type="text" id="name">
       <button type="submit">Submit</button>
+      </div>
+
     </form>
-    <h1>Your name is:</h1>
-    <div id="showName"> </div>
+    <h2>Welcome to the epic battle, </h2>
+    <h2><div id="showName"></div></h2>
 
   </div>
   <div>
