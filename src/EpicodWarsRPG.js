@@ -52,33 +52,47 @@ export const changeState = (prop) => {
   }
 }
 
-// FRONT END EX: const input = "James";
-const assignName = changeState("playerName")(input);
-const loadBoss = changeState("bossName")("Brooker T");
-
-const nameAssigned = updateGame(assignName);
-const bossLoaded = updateGame(loadBoss);
 
 
 // ----------------- S T A R T I N G    C H A N G E - S T A T E S ----------------------
+// FRONT END EX: const input = "James";
+//~ player
+const assignName = changeState("playerName")(input);
+//~ game
+const leaveStartScreen = changeState("StartScreen")(false)
+const enterTrainigMode = changeState("trainingMode")(true)
+//~ boss
+const loadBoss = changeState("bossName")("Brooker T");
+
+// PRESS START ~~~
+const LeftStartScreen = updateGameState(leaveStartScreen);
+const nameAssigned = updatePlayer(assignName);
+const bossLoaded = updateBoss(loadBoss);
 
     
 // ----------------- T R A I N I N G  C H A N G E - S T A T E S ----------------------
-
-// ==== t r a n s i t i o n   c h a n g e - s t a t e s =========
+// S T R E T C H 
 // const playerLBMax = player.lifebar (callWhenEnterFightMode)
 // const regenerateLifeBar = changeState(playerLifebar)(10); //Add 10 points to playerLifeBar after win
-// ==============================================================
 
+// ~player
 export const goToClass = changeState("playerAttackStrength")(3);
 export const goToStandUp = changeState("playerAttackStrength")(1);
-const playerWentToClass = updateGame(goToClass);
-const playerWentToStandUp = updateGame(goToStandUp);
- 
 
+const playerWentToClass = updatePlayer(goToClass);
+const playerWentToStandUp = updatePlayer(goToStandUp);
+ 
 // ----------------- F I G H T - M O D E  C H A N G E - S T A T E S ----------------------
+// ~ game
+const leaveTraining = changeState("trainingMode")(false)
+const enterTrainigMode = changeState("fightingMode")(true)
+// ~ player + boss
 export const playerGiveHit = changeState("bossLifebar")(-(playerWentToStandUp.playerAttackStrength)); 
 
+
+// PRESS ATTACK
+const playerAttacked = 
+//  boss auto-hits
 export const bossGiveHit = changeState("playerLifebar")(-(playerWentToStandUp.bossAttackStrength)); 
 
 

@@ -1,12 +1,12 @@
-import 'EpicodWarsRPG.js';
+// import './src/EpicodWarsRPG.js';
 import $ from 'jquery';
+
 
 $(document).ready(function() {
   $("#addName").submit(function(event) {
     event.preventDefault();
-    let name = $("input#name").val();
-  })
-
-  
-})
+    var name = $("input#name").val();
+    $('#showName').text(name);
+  });
+});
 
